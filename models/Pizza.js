@@ -42,7 +42,8 @@ const PizzaSchema = new Schema(
 
 // get total count of comments and replies on retrieval
 PizzaSchema.virtual('commentCount').get(function() {
-    return this.comments.length;
+    // using .reduce() method to tally the total of every comment, including its replies. .reduce() takes two params, an accumulator and a currentValue. here, the accumulator is total, and the current value is its comment. as .reduce() walks through the array, it passes the accumulating total and current value of comment into the function, w the return of the function revising the total for the next iteration through the array
+    return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
   });
 
 
@@ -51,3 +52,6 @@ const Pizza = model('Pizza', PizzaSchema);
 
 // export the Pizza model
 module.exports = Pizza;
+
+// OR combine the two
+//module.exports = mongoose.model('Pizza', PizzaSchema);
