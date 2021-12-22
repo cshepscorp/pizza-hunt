@@ -47,7 +47,8 @@ createPizza({ body }, res) { // we destructure the body out of the Express.js re
   // update pizza by id
 updatePizza({ params, body }, res) {
     // Mongoose finds a single document we want to update, then updates it and returns the updated document
-    Pizza.findOneAndUpdate({ _id: params.id }, body, { new: true }) // If we don't set that third parameter, { new: true }, it will return the original document. By setting the parameter to true, we're instructing Mongoose to return the new version of the document
+    //  include this explicit setting (runValidators: true) when updating data so that it knows to validate any new information.
+    Pizza.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true }) // If we don't set the third parameter { new: true }, it will return the original document. By setting the parameter to true, we're instructing Mongoose to return the new version of the document
     // .updateOne() and .updateMany() will update documents without returning them
       .then(dbPizzaData => {
         if (!dbPizzaData) {

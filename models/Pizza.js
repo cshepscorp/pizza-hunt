@@ -7,10 +7,14 @@ const PizzaSchema = new Schema(
     // don't have to define the fields, as MongoDB will allow the data anyway, but for for clarity and usability, we should regulate what the data will look like
     // this data will adhere to the built-in JavaScript data types, including strings, Booleans, numbers, and so on.
     pizzaName: {
-        type: String
+        type: String,
+        required: 'You need to give your pizza a name',
+        trim: true // removes white space before and after the input string
     },
     createdBy: {
-        type: String
+        type: String,
+        required: 'You need to tell us your name',
+        trim: true
     },
     createdAt: {
         type: Date,
@@ -19,6 +23,8 @@ const PizzaSchema = new Schema(
     },
     size: {
         type: String,
+        required: true,
+        enum: ['Personal', 'Small', 'Medium', 'Large', 'Extra Large'], // enum option stands for enumerable, a popular term in web development that refers to a set of data that can be iterated over—much like using the for...in loop to iterate through an object.
         default: 'Large'
     },
     toppings: [], // indicates an array as the data type. 'toppings: Array' would also have worked

@@ -8,7 +8,7 @@ const commentController = {
             return Pizza.findOneAndUpdate(
               { _id: params.pizzaId },
               { $push: { comments: _id } }, // All of the MongoDB-based functions like $push start with a dollar sign ($), making it easier to look at functionality and know what is built-in to MongoDB and what is a custom noun the developer is using
-              { new: true }
+              { new: true, runValidators: true }
             );
           })
           .then(dbPizzaData => {
@@ -24,7 +24,7 @@ const commentController = {
         Comment.findOneAndUpdate(
           { _id: params.commentId },
           { $push: { replies: body }},
-          { new: true }
+          { new: true, runValidators: true }
         )
           .then(dbPizzaData => {
             if (!dbPizzaData) {
